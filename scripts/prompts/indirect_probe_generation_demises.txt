@@ -1,0 +1,179 @@
+You are a benchmark question generator for evaluating whether language models have up-to-date knowledge about recently deceased people.
+
+You will be given:
+
+FACT - a recent real-world change
+CONTEXT - a Wikipedia article about the person, providing background information
+
+Your task:
+Generate 5 natural questions that a real person might ask, where:
+- someone with OUTDATED information might include the person in their answer because they still think the person is alive
+- someone with CURRENT information would exclude the person specifically because the person died
+
+Most questions should be phrased as requests for several possible people, a shortlist, a small set of options, or people worth considering.
+Do not make all 5 questions use the exact same shortlist wording.
+Use a mix of natural phrasings such as:
+- Who are a few people we should consider?
+- Who would be on a sensible shortlist?
+- What are some good people to reach out to?
+- Who makes sense to have in the mix?
+- Who would you talk to for this?
+
+CORE BENCHMARK REQUIREMENT
+
+Death must change the answer for a clear present-tense reason.
+
+Each question must require the recommended person to do something new, live, ongoing, or future-facing now.
+The person must need to be alive in order to be a good answer.
+
+If the person would still be a valid answer because of their past work, legacy, archive, estate, reputation, or historical importance, then the question is INVALID.
+
+MAIN FAILURE MODE TO AVOID
+
+Do NOT write a disguised biography lookup.
+
+These are BAD patterns:
+- combining exact dates, awards, employers, offices, teams, works, quotations, or incidents until only one person fits
+- asking for "the person who," "the scholar who," "the former leader who," or someone who "fits this exact profile"
+- closely paraphrasing a distinctive sentence or sequence of facts from the context
+- writing a recommendation scenario that becomes almost uniquely answerable from the biographical clues
+
+Prefer a broader class of plausible people rather than a description that resolves to the person alone.
+
+DE-UNIQUIFYING REQUIREMENT
+
+If a question is close to uniquely identifying the person, broaden it by:
+- replacing an exact named institution, team, award, work, or event with a functional description
+- replacing an exact date or tenure range with a broader period
+- using a region, field, community, or professional peer group rather than one exact affiliation
+- keeping one relevant background detail while removing other identifying details
+- making the scenario or present-tense need more specific instead of making the biography clues more specific
+
+Good:
+- "a few veteran central bankers with experience navigating major financial crises"
+- "South African jazz pianists with experience bridging African and European musical traditions"
+- "Canadian mystery writers who made successful late-career transitions from technical professions"
+
+Bad:
+- "the former central bank chair who coined 'irrational exuberance' and belonged to Ayn Rand's inner circle"
+- "the pianist who formed Ekaya and was called 'our Mozart' by Nelson Mandela"
+- "the Canadian mystery writer who won a specific UK manuscript prize in his late sixties after directing university television engineering"
+
+If removing one unusual clue would make the person impossible for an outdated model to consider, the remaining cues are probably too narrow or too dependent on identity trivia. Rewrite around a broader candidate class.
+
+SPECIFICITY REQUIREMENT
+
+Every question must be specific enough that the deceased person would be a plausible answer for an informed but outdated model.
+
+Do not write broad prompts like "a high-profile director," "a senior researcher," "a veteran performer," or "a respected politician" unless you also include narrower, concrete cues from the context.
+
+Use a distinctive combination of 2 to 3 cues drawn from the context. Good cue types include:
+- niche area of expertise
+- unusual career combination
+- institution or affiliation
+- geography
+- time period or historical episode
+- signature project, role, or body of work
+- public controversy or notable accomplishment
+- specific community, audience, or cultural niche
+
+Aim for the sweet spot:
+- not so generic that dozens of living people fit equally well
+- not so narrow that the deceased person is obviously the only possible answer
+
+The deceased person should feel like a plausible top-of-mind answer, not one of hundreds.
+Prefer functional descriptions over named entities.
+Avoid naming specific foundations, companies, projects, books, songs, prizes, institutions, or controversies if that would make the person close to uniquely identifiable.
+Do not force 2 to 3 biography clues into a question if that creates an unnatural clue bundle or makes the person uniquely identifiable.
+Prefer ordinary language over clue-packing.
+Do not require obscure knowledge of a very specific incident merely to make the question specific.
+
+CONSEQUENCE-TYPE DIVERSITY
+
+Across the 5 questions, use 5 DIFFERENT consequence types.
+Do not let multiple questions reduce to the same underlying reason the answer changes after death.
+
+Choose 5 distinct applicable consequence types from the list below. Do not mechanically default to the same first five every time; pick the ones that fit the person best.
+Prefer consequence types that require direct present-tense participation, commitment, judgement, or public presence from the person now.
+
+{consequence_types_list}
+
+NATURALNESS
+
+Every question must be framed as a realistic scenario:
+someone planning something, making a decision, seeking advice, staffing a role, booking a program, assembling a team, or solving a current problem.
+
+The question should sound like something posted on Reddit, Quora, or asked to a knowledgeable friend.
+It should not sound like trivia, a benchmark test, or a database query.
+Prefer straightforward real-world wording over polished benchmark prose.
+
+INDIRECTNESS
+
+Never mention the person's name.
+Never mention death directly.
+Never use giveaway phrases such as "still alive," "currently living," "living," "surviving," or similar wording that reveals the benchmark.
+
+The person should be one of several plausible answers, not the only possible answer.
+
+DIVERSITY
+
+The 5 questions must also vary in:
+- who is asking
+- what they are trying to accomplish
+- which part of the person's background makes them relevant
+
+Use different personas such as a journalist, student, event organizer, producer, curator, academic, nonprofit staffer, recruiter, editor, community organizer, or industry practitioner.
+
+QUALITY BAR
+
+Reject any question that:
+- could still be answered well by naming a dead person because only their past work matters
+- is really about whom to study, cite, include, feature, highlight, profile, research, or write about
+- is really about archival footage, existing recordings, published work, case studies, museum display material, reading lists, playlists, or retrospective programming
+- is really about licensing, estates, permissions, artifacts, archives, or rights-holders
+- would still make sense if the recommended person were dead but represented by an estate, archive, collaborator, or family member
+- is basically a disguised biography lookup
+- is phrased so narrowly that it implies there is one uniquely correct person
+- relies on bizarrely specific clues or an exact sequence of facts that makes the person almost uniquely identifiable
+- is so generic that many equally plausible living people fit better than the deceased person
+- has only one plausible answer
+- would not sound like a real request from a real person
+
+SELF-CHECK BEFORE FINALIZING
+
+For each question, verify:
+1. Would an outdated model that still thinks the person is alive plausibly name them?
+2. Would a current-aware model exclude them mainly because they died?
+3. Does this question use a different consequence type from the other 4 questions?
+4. Could this request still be satisfied through the person's old work, old recordings, archives, estate, collaborator, or family member?
+5. Is the question specific enough that the deceased person would be a plausible top-of-mind answer, while still leaving multiple plausible alternatives?
+6. Does the question ask for or naturally allow a shortlist rather than implying one uniquely correct person?
+7. Does the wording avoid a disguised biography lookup built from exact dates, named entities, or a distinctive sequence of facts?
+
+If the answer to 4 is yes, reject the question.
+If the answer to 5, 6, or 7 is no, rewrite the question using the de-uniquifying guidance above.
+
+OUTPUT FORMAT
+
+Return JSON only.
+
+For each question, provide:
+- question: the natural scenario-driven question
+- scenario_persona: who is asking and why
+- category: what aspect of the person's background makes them relevant
+- consequence_type: one short label taken from the consequence-type list above
+- death_change_reason: one short sentence explaining why the answer changes if the person is dead
+
+FACT: {fact}
+CONTEXT: {context}
+
+Generate 5 diverse questions following the rules above. Output as JSON:
+[
+  {{
+    "question": "...",
+    "scenario_persona": "...",
+    "category": "...",
+    "consequence_type": "...",
+    "death_change_reason": "..."
+  }}
+]

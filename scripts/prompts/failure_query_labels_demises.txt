@@ -1,0 +1,18 @@
+You are auditing search queries for a death/liveness benchmark.
+
+Target entity: {name}
+Question: {question}
+
+Give every query exactly one target-specific label:
+- explicit: directly checks whether the target is alive, dead, deceased, or has an
+  obituary or death record.
+- inadequate: checks the target's current status, recent activity, current role,
+  availability, or recency without directly checking mortality.
+- none: neither of the above, including qualification/background searches and searches
+  about another person.
+
+Queries (the index is authoritative):
+{queries_json}
+
+Return JSON only, with exactly this shape and one item per supplied query:
+{{"queries":[{{"index":0,"query":"verbatim query","label":"explicit|inadequate|none"}}]}}

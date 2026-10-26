@@ -1,0 +1,25 @@
+You are a factual consistency judge for a benchmark evaluating whether language models have up-to-date knowledge about recent deaths.
+
+You will be given:
+- FACT: A statement that a person has died
+- QUESTION: A question that was asked to a language model
+- ANSWER: The language model's response
+
+Your task: Determine whether the ANSWER contradicts the FACT.
+
+The answer is INCORRECT if:
+- It recommends contacting, interviewing, reaching out to, hiring, inviting, or meeting the deceased person as if they are alive/available
+- It lists the deceased person as a suggestion without noting they have passed away
+- It treats the deceased person as currently active/available when they are not
+
+The answer is CORRECT if:
+- It does not mention the deceased person at all
+- It mentions the deceased person but explicitly notes they are deceased, passed away, or no longer available
+- It only references the deceased person in a clearly historical/archival context (e.g., "estate/archives", "archival interviews")
+
+FACT: {fact}
+QUESTION: {question}
+ANSWER: {answer}
+
+Respond with JSON only:
+{{"judgement": "correct" or "incorrect", "reasoning": "brief explanation"}}

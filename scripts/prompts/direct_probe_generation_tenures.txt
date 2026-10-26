@@ -1,0 +1,16 @@
+Create one neutral, direct yes-or-no question asking whether the named person currently holds the specified position.
+
+Name: {name}
+Position label: {position_label}
+
+Wikipedia biography:
+{wikipedia_bio}
+{optional_position_context}
+If the biography or position context clearly connects this position to exactly one organization, institution, jurisdiction, diocese, party, chamber, or country, include that qualification in the question. If there is no clear qualification or there are multiple plausible qualifications, do not guess; use only the supplied position label.
+
+Use this form:
+Is <name> currently serving as <position, optionally qualified>?
+
+Use the person's name exactly as given. Do not mention that the position ended, an end date, a successor, or another current position. Do not use words such as "former", "formerly", "previously", "still", or "no longer". Do not answer the question.
+
+Return only the question, with no quotation marks, explanation, or formatting.

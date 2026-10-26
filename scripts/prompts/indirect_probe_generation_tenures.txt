@@ -1,0 +1,273 @@
+You are a benchmark question generator for evaluating whether language models have up-to-date knowledge about recently ended position-held facts.
+
+You will be given:
+
+FACT - a recent real-world fact that a person stopped holding a position
+ENTITY CONTEXT - a Wikipedia article about the person, providing background information
+RELEVANT FACT CONTEXT - background about the role, office, organization, institution, or affiliation involved in the fact
+
+Your task:
+Generate 5 natural questions that a real person might ask, where:
+- someone with OUTDATED information might include the person in their answer because they still think the person holds the position
+- someone with CURRENT information would exclude the person mainly because the person no longer holds that position
+
+Most questions should be phrased as requests for several possible people, a shortlist, a small set of options, or people worth considering.
+Do not make all 5 questions use the exact same shortlist wording.
+Use a mix of natural phrasings such as:
+- Who are a few people we should consider?
+- Who would be on a sensible shortlist?
+- What are some good people to reach out to?
+- Who makes sense to have in the mix?
+- Who would you talk to for this?
+
+CORE BENCHMARK REQUIREMENT
+
+The answer must change for a present-tense, role-dependent reason.
+
+The person should only be a good answer if they still hold the role now, or if someone wrongly believes they still do.
+If the person would still be a good answer mainly because of fame, expertise, seniority, personal network, or past achievements apart from the role, the question is INVALID.
+
+MAIN FAILURE MODE TO AVOID
+
+Do NOT write a disguised current-holder lookup.
+
+These are BAD patterns:
+- asking for the head, president, prime minister, mayor, minister, director, chair, spokesperson, or top leader of the exact organization, country, city, agency, church, party, or institution in the fact
+- asking for "the current leadership" or "the top decision-maker" at the exact institution in the fact
+- writing a question that becomes almost uniquely answerable as soon as the organization or office is named
+
+If the position is something like "Prime Minister of X", "Director General of Y", "President of Z", "Mayor of W", or "Spokesperson of Q", then a question that explicitly asks for the leader of X/Y/Z/W/Q is usually INVALID.
+
+Prefer a broader class of plausible people rather than the exact officeholder of the exact named entity in the fact.
+
+DE-UNIQUIFYING REQUIREMENT
+
+Usually avoid mentioning the exact organization, country, city, agency, church, party, facility, or institution named in the position label.
+
+Instead, broaden the question by using more indirect cues such as:
+- a domain or issue area tied to the role
+- a regional cluster or peer group
+- a type of institution rather than the exact one
+- one responsibility or live topic connected to the role
+- one relevant non-title background detail about the person
+
+Good:
+- "current heads of government with a background as university professors"
+- "heads of major international research laboratories"
+- "people currently leading large scientific collaborations"
+
+Bad:
+- "the prime minister of the Czech Republic"
+- "the top leadership at CERN"
+- "the current president of the Alliance of Sahel States"
+- "the person currently chairing the Swiss Federal Council"
+
+If naming the exact organization or office makes the answer close to uniquely identifiable, rewrite the question more broadly.
+
+BACKGROUND-DETAIL REQUIREMENT
+
+In at least 3 of the 5 questions, include one non-title detail from ENTITY CONTEXT if the biography supports it naturally.
+
+Good background-detail types include:
+- earlier profession or academic background
+- unusual career combination
+- distinctive policy area, research area, or issue area
+- constituency, community, or audience they are associated with
+- one notable responsibility, theme, or kind of work from their tenure
+- one ordinary biographical detail that helps make them plausible without uniquely identifying them
+
+This is desirable because it makes the stale answer come partly from prior knowledge about the person, not just from the model spotting the office.
+
+Do not force a background detail into every question if the context is thin or the wording becomes unnatural.
+Do not use a detail that makes the person obviously the only possible answer.
+
+FIT FOR P39 + P582 FACTS
+
+These facts can involve many kinds of positions: political, diplomatic, corporate, academic, nonprofit, sports, media, religious, military, or other roles.
+
+Write questions that fit the actual role in the supplied context.
+Do not force every case into a government, crisis-management, or formal sign-off scenario.
+If the role is narrow or low-profile, a smaller and more ordinary scenario is better than a grand institutional one.
+
+WHAT MAKES A GOOD QUESTION
+
+A good question is about doing something now where current role occupancy matters.
+A good question should usually ask for a small set of plausible people rather than a single uniquely correct current officeholder.
+
+Prefer question types where officeholding gives a unique present-tense function.
+Best cases are tasks involving:
+- official representation
+- formal sign-off or approval
+- agenda-setting, chairing, or convening authority
+- official contact routing
+- authority to negotiate, decide, endorse, or speak on behalf of the institution
+
+Be careful with question types about:
+- keynote speakers
+- panelists
+- advisors
+- commentators
+- experts
+- prominent public figures
+
+These often fail because a former holder could still be a good answer even after leaving office.
+
+Examples of good present-tense needs:
+- coming up with a shortlist of people to invite, brief, approach, quote, consult, or include in a live discussion
+- figuring out which few people make sense to contact on a current issue where the role matters
+- identifying who should be in the mix for a meeting, event, negotiation, approval path, or public response
+- deciding which people are worth considering for present-tense outreach, accountability, coordination, or representation
+
+The stale answer should come from the model linking the person to the role and mistakenly assuming that link is still current.
+Do not require obscure knowledge of a very specific controversy or tenure episode unless it is genuinely natural and useful.
+
+Good questions are live-task questions with realistic context and multiple plausible options.
+Bad questions are thinly disguised lookups for the current holder of a title.
+
+SPECIFICITY REQUIREMENT
+
+Every question must be specific enough that the person would be a plausible stale answer for an informed but outdated model.
+
+Use 2 to 3 cues that make the person plausible.
+In most questions, at least one cue should come from ENTITY CONTEXT rather than just the office itself.
+
+Good cue types include:
+- a non-title background detail from the person's biography
+- the issue area or domain tied to the role
+- a regional or institutional peer group rather than the exact organization
+- one notable responsibility, initiative, public issue, or area of work during tenure
+- one geography or audience cue, as long as it does not collapse the question into a direct officeholder lookup
+
+Aim for the sweet spot:
+- not so generic that many unrelated current role-holders fit equally well
+- not so narrow that the person is obviously the only plausible answer
+
+Prefer ordinary language over clue-packing.
+Do not force 2 to 3 biography clues into every question if that makes the wording unnatural.
+Do not invent tenure-specific crises, reforms, or controversies just to make the question sound specific.
+Avoid named entities if they would make the answer nearly unique.
+
+INDIRECTNESS
+
+Never mention the person's name.
+Never restate the exact position label in the question.
+Never mention the position change, replacement, tenure dates, or that the person is former.
+Never ask a direct trivia question like "Who is the current X?"
+Never use giveaway phrases such as "current officeholder," "incumbent," "former holder," "still in office," "no longer in the role," or similar wording that reveals the benchmark.
+
+Avoid phrasings like:
+- "the head of [exact entity]"
+- "the current leader of [exact entity]"
+- "the top leadership at [exact entity]"
+- "the person currently chairing [exact entity]"
+- "who represents [exact entity] at the highest level"
+
+The role change should matter implicitly, not be spelled out.
+The person should be one plausible stale answer among several plausible answers, not the only possible answer.
+
+NATURALNESS
+
+Every question must be framed as a realistic present-tense request:
+someone trying to get something done, solve a live problem, staff a role, organize an event, build a shortlist, decide whom to contact, brief a few plausible people, or figure out who makes sense to include now.
+
+The question should sound like something posted on Reddit, Quora, Slack, or asked to a knowledgeable colleague.
+It should not sound like trivia, a benchmark test, or a database query.
+Prefer straightforward real-world wording over polished benchmark prose.
+
+DIVERSITY
+
+Across the 5 questions, vary:
+- who is asking
+- what they are trying to do
+- which part of the role or background makes the person a plausible stale answer
+
+Aim for varied consequence types, but do not force artificial distinctions.
+If the context is thin, prioritize natural, believable questions over maximal diversity.
+
+Use one short `consequence_type` label for each question.
+Prefer simple labels such as:
+- representation
+- spokesperson
+- decision_authority
+- sign_off
+- negotiation
+- coordination
+- contact_routing
+- accountability
+- public_appearance
+- ceremonial_role
+- eligibility
+- affiliation
+- leadership
+
+If another short label fits better, you may use it.
+
+QUALITY BAR
+
+Reject any question that:
+- is basically a disguised current-holder lookup
+- is phrased so narrowly that it implies there is one uniquely correct current officeholder
+- includes the exact organization, country, city, or institution from the position label in a way that makes the answer obvious
+- sounds like trivia or a database query
+- only works because of the person's fame, expertise, or past accomplishments
+- would still be a good question about the person even if they were just a well-known former holder of the role
+- is about retrospective commentary, memoir, history, archives, or past achievements
+- relies on bizarrely specific clues that make the person almost uniquely identifiable
+- feels much more natural for the current holder than for a stale model to name the former holder
+- fails to use any meaningful person-specific detail when the biography clearly provides one
+- would not sound like something a real person would actually ask
+
+FORMER-HOLDER EXCLUSION TEST
+
+For each question, imagine the person stepped down yesterday but remained alive, famous, respected, and available.
+
+Would they still be a sensible answer because of:
+- expertise
+- prestige
+- past leadership
+- media profile
+- advisory value
+- another current role
+
+If yes, the question is INVALID.
+The only main reason they should be a good stale answer is that an outdated model would wrongly think they still hold the position now.
+
+SELF-CHECK BEFORE FINALIZING
+
+For each question, verify:
+1. Could an informed but outdated model plausibly name this person because it still thinks they hold the position?
+2. Would a current-aware model exclude them mainly because the position ended?
+3. Is the question natural and realistic, rather than benchmark-like?
+4. Is the question specific enough to make the person plausible, while still leaving multiple plausible answers?
+5. Does the wording avoid directly asking for the exact officeholder of the exact named entity in the fact?
+6. Does the question avoid restating the exact position label or closely paraphrasing it?
+7. In most cases, did I include at least one useful non-title detail from the person's background?
+8. If the person had stepped down yesterday but were still alive and available, would they still be a good answer for reasons other than still holding the office? 
+
+If any answer to questions 1–7 is no, or if the answer to question 8 is yes, rewrite or replace the question.
+
+OUTPUT FORMAT
+
+Return JSON only.
+
+For each question, provide:
+- question: the natural scenario-driven question
+- scenario_persona: who is asking and why
+- category: what part of the person's role, track record, or background makes them a plausible stale answer
+- consequence_type: a short label for why the answer changes once the role ended
+- position_change_reason: one short sentence explaining why the answer changes if the person no longer holds the position
+
+FACT: {fact_text}
+ENTITY CONTEXT: {entity_context}
+RELEVANT FACT CONTEXT: {relevant_information}
+
+Generate 5 diverse questions following the rules above. Output as JSON:
+[
+  {{
+    "question": "...",
+    "scenario_persona": "...",
+    "category": "...",
+    "consequence_type": "...",
+    "position_change_reason": "..."
+  }}
+]

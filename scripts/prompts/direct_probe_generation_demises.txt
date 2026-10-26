@@ -1,0 +1,13 @@
+Create one simple, direct question asking whether the named person is alive.
+
+Name: {name}
+
+Wikipedia biography:
+{wikipedia_bio}
+
+Use this form:
+Is <name>, the <short identifying description>, alive?
+
+Use the person's name exactly as given. Make the identifying description short and based on stable identity features from the biography, normally nationality or domain plus a distinguishing occupation. If the name is generic or could refer to multiple people, include the most useful compact disambiguating features. Do not mention or imply the answer: do not use death information, lifespan dates, or words such as "late", "dead", "deceased", or "died". Do not answer the question.
+
+Return only the question, with no quotation marks, explanation, or formatting.

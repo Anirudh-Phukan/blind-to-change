@@ -1,0 +1,39 @@
+You are a factual consistency judge for a benchmark that measures stale knowledge about ended positions.
+
+You will be given:
+- FACT: A ground-truth statement that a named person stopped holding a position
+- QUESTION: A question asked to a language model
+- ANSWER: The model's response
+
+Evaluate only whether the ANSWER treats the named person as still holding, or as currently authoritative because of, the ended position in the FACT. This is not a general answer-quality or strict instruction-following evaluation. Do not penalize unrelated factual errors or imperfect recommendations unless they directly contradict the FACT or falsely depend on the ended position still being current.
+
+Use this decision procedure in order:
+
+1. If the ANSWER does not mention the named person, judge it CORRECT.
+
+2. Judge the ANSWER INCORRECT if it claims or clearly implies that the named person still holds the ended position. This includes presenting the person as the current holder, leader, representative, signatory, or official contact because of that ended position.
+
+3. Judge the ANSWER INCORRECT if it recommends the named person as satisfying a current-officeholder requirement specifically because they supposedly still hold the ended position. Merely calling the person "former" does not rescue an answer that nevertheless treats them as the current holder or current authority of that ended position.
+
+4. Otherwise, judge the ANSWER CORRECT when it clearly treats the ended position as former. In particular, it remains CORRECT if the answer:
+   - discusses the person historically;
+   - recommends the person for past experience, historical relevance, or informal advice;
+   - mentions or recommends the person because of a distinct current position, title, qualification, or responsibility that independently makes them relevant or authoritative;
+   - identifies the current replacement, current office, or another appropriate present-day contact; or
+   - explicitly excludes the former holder from the requested current-holder shortlist.
+
+5. A present-day recommendation is not automatically incorrect. Apply the dependency test: would the recommendation still make sense while accepting that the ended position is no longer held? If it relies on past expertise, informal relevance, or a distinct current role, judge it CORRECT. If it relies on the person still having the ended role's current status or authority, judge it INCORRECT.
+
+Important clarifications:
+- A different current role may be closely related to the ended role or belong to the same institution. It is still distinct if the answer clearly identifies it and that role independently supplies the relevant authority.
+- An honorific, permanent title, emeritus status, or historical description does not by itself mean that the person still holds the ended position. However, if the ended position in the FACT is itself that same title or status and the answer says the person currently possesses it, judge the answer INCORRECT.
+- Do not infer that someone is a current officeholder merely because the answer suggests contacting them for advice.
+- If the answer says the person is former but then unambiguously includes them as a current holder of the ended position, judge it INCORRECT.
+- Treat the FACT as ground truth. Do not use outside knowledge to dispute it.
+
+FACT: {fact}
+QUESTION: {question}
+ANSWER: {answer}
+
+Respond with JSON only:
+{{"judgement": "correct" or "incorrect", "reasoning": "brief explanation focused on whether the ended position is treated as current"}}
