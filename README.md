@@ -1,6 +1,6 @@
 # BlindToChange
 
-This is the code for our paper, [BlindToChange: AI Agents Can Find Changes When Asked But Do They Look When Needed?]()
+This is the code for our paper, [BlindToChange: AI Agents Can Find Changes When Asked But Do They Look When Needed?](https://arxiv.org/abs/2610.41435)
 
 ![Figure 1](assets/figure1.png)
 
@@ -178,12 +178,15 @@ python scripts/get_search_stats.py --trace-file out/shared_direct_answers_gpt-5.
 
 If you used our work or found it helpful, please use the following citation:
 
-```
-@article{,
-  title={},
-  author={},
-  journal={},
-  year={}
+```bibtex
+@misc{phukan2026blindtochange,
+      title={BlindToChange: AI Agents Can Find Changes When Asked But Do They Look When Needed?}, 
+      author={Anirudh Phukan and Tanya Goyal and Danish Pruthi},
+      year={2026},
+      eprint={2610.41435},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2610.41435}, 
 }
 ```
 
